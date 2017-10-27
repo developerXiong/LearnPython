@@ -35,16 +35,23 @@ def add(name, phonenumber):
 		print 'Add a user:%s successful'%name
 
 def delete(name):
+	name = str(name)
 	datas = readFile()
 	if len(datas) == 0:
 		print 'Nothing to delete'
 	else:
+		removeDicts = []
 		for dict in datas:
-			if len(dict[name]) != 0:
-				datas.remove(dict)
-			else:
-				print 'The name is not exists.'
-		writeFile(datas)
+			for (k, v) in dict.items():
+				if k == name:
+					removeDicts.append(dict)
+		if len(removeDicts) != 0:
+			for item in removeDicts:
+				datas.remove(item)
+			writeFile(datas)
+			print 'Delete %s successful'%name
+		else:
+			print 'The address is not exists.'
 
 def update(name, phonenumber):
 	pass
